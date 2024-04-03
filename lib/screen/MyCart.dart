@@ -76,7 +76,7 @@ class MyCart extends StatelessWidget {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text("$productname removed!"),
                               duration:
-                                  const Duration(seconds: 1, milliseconds: 100),
+                                const Duration(seconds: 1, milliseconds: 100),
                             ));
                           } else {
                             ScaffoldMessenger.of(context)

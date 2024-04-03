@@ -45,6 +45,25 @@ class _MyCheckoutState extends State<MyCheckout> {
                   },
                 )
               ),
+              Flexible(
+                child: Column(
+                  children: [
+                    const Divider(height: 4, color: Colors.black),
+                    computeCost(),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<ShoppingCart>().removeAll();
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Payment Successful!"),
+                          duration: Duration(seconds: 1, milliseconds: 100),
+                          )
+                        );
+                      },
+                      child: const Text("Pay Now!"),
+                      ),
+                  ],
+                )
+              )
             ],
           )
         );
