@@ -1,0 +1,10 @@
+// ignore_for_file: file_names
+
+// contains the standard data fields for an item 
+class Item {
+  String name;
+  double price;
+  int quantity;
+
+  Item(this.name, this.price, this.quantity);
+}
