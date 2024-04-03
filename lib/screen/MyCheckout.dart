@@ -28,7 +28,6 @@ class _MyCheckoutState extends State<MyCheckout> {
   
   Widget getItems(BuildContext context) {
     List<Item> products = context.watch<ShoppingCart>().cart;
-    String productname = "";
     return products.isEmpty
       ? const Text('No items to checkout!')
       : Expanded(
@@ -71,7 +70,7 @@ class _MyCheckoutState extends State<MyCheckout> {
 
   Widget computeCost() {
     return Consumer<ShoppingCart>(builder: (context, cart, child) {
-       return Text("Total: ${cart.cartTotal}");
+       return Text("Total Cost to Pay: ${cart.cartTotal}");
     });
   }
 }
