@@ -4,14 +4,14 @@ import '../model/Item.dart';
 import "package:provider/provider.dart";
 import '../provider/shoppingcart_provider.dart';
 
-class MyCheckout extends StatefulWidget {
-  const MyCheckout({super.key});
+class Checkout extends StatefulWidget {
+  const Checkout({super.key});
 
   @override
-  State<MyCheckout> createState() => _MyCheckoutState();
+  State<Checkout> createState() => _CheckoutState();
 }
 
-class _MyCheckoutState extends State<MyCheckout> {
+class _CheckoutState extends State<Checkout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
