@@ -23,7 +23,7 @@ class _MyCatalogState extends State<MyCatalog> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: const Text("My Catalog")),
+        title: const Text("My Catalog"),
       ),
       body: ListView.builder(
         itemBuilder: (BuildContext context, int index) {

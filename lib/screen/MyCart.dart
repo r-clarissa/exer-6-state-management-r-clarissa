@@ -15,9 +15,9 @@ class MyCart extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [ 
           // methods
-          getItems(context), 
+          getItems(context),
+          const SizedBox(height: 10),
           computeCost(),
-          const Divider(height: 4, color: Colors.black),
           // buttons
           Flexible(
             child: Center(
@@ -25,18 +25,34 @@ class MyCart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   // reset button
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<ShoppingCart>().removeAll();
-                    },
-                    child: const Text("Reset")
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        context.read<ShoppingCart>().removeAll();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0), 
+                        ),
+                      ),
+                      child: const Text("Reset")
+                    ),
                   ),
                   // checkout button
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/checkout");
-                    },
-                    child: const Text("Checkout")
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/checkout");
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0), 
+                        ),
+                      ),
+                      child: const Text("Checkout")
+                    ),
                   ),
                 ]
               )
@@ -44,7 +60,7 @@ class MyCart extends StatelessWidget {
           ),
           // return to /products button
           TextButton( 
-            child: const Text("Go back to Product Catalog"),
+            child: const Text("< Go back to Product Catalog"),
             onPressed: () {
               Navigator.pushNamed(context, "/products");
             },
@@ -75,7 +91,7 @@ class MyCart extends StatelessWidget {
                       leading: const Icon(Icons.food_bank),
                       title: Text(products[index].name),
                       trailing: IconButton(
-                        icon: const Icon(Icons.delete),
+                        icon: const Icon(Icons.delete, color: Colors.pink),
                         onPressed: () {
                           productname = products[index].name;
                           context.read<ShoppingCart>().removeItem(productname);
@@ -107,7 +123,7 @@ class MyCart extends StatelessWidget {
   // gets the total amount of selected items in cart
   Widget computeCost() {
     return Consumer<ShoppingCart>(builder: (context, cart, child) {
-       return Text("Total: ${cart.cartTotal}");
+       return Text("Total: ${cart.cartTotal}", style: const TextStyle(fontWeight: FontWeight.bold));
     });
   }
   
