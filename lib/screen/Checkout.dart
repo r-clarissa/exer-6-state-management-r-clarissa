@@ -17,11 +17,12 @@ class _CheckoutState extends State<Checkout> {
     return Scaffold( // checkout scaffold
       appBar: AppBar(title: const Text("Checkout")),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start, 
+        mainAxisAlignment: MainAxisAlignment.center, 
         children: [ // checkout header
-          const Text("Item Details"),
-          const Divider(height: 4, color: Colors.black),
-          getItems(context), // display the current checkout products
+          const Center(child: Text("Item Details", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)),
+          // methods
+          getItems(context), 
+          const SizedBox(height: 10),
         ],)
     );
   }
@@ -33,40 +34,59 @@ class _CheckoutState extends State<Checkout> {
 
     // conditionals for no. of products fetched
     return products.isEmpty
-      ? const Text('No items to checkout!')
+      ? const Center(child: Text('No items to checkout!'))
       : Expanded(
           child: Column(
             children: [
               // display the product list
-              Flexible(
-                child: ListView.builder(
-                  itemCount: products.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      leading: const Icon(Icons.food_bank),
-                      title: Text(products[index].name),
-                    );
-                  },
-                )
-              ),
+                Flexible(
+                  child: ListView.builder(
+                    itemCount: products.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: ListTile(
+                              title: Text(products[index].name),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(right: 20.0),
+                            child: Text(
+                              '${products[index].price}',
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              computeCost(),          
               // pay now button and prompt
               Flexible(
                 child: Column(
                   children: [
-                    const Divider(height: 4, color: Colors.black),
-                    computeCost(), // compute total cost before payment
-                    ElevatedButton( // once user clicked pay now
-                      onPressed: () {
-                        context.read<ShoppingCart>().removeAll(); // clear all checkout products
-                        ScaffoldMessenger.of(context)
-                          .showSnackBar(const SnackBar(
-                            content: Text("Payment Successful!"), // display payment successful prompt
-                            duration: Duration(seconds: 1, milliseconds: 100),
-                          )
-                        );
-                      },
-                      child: const Text("Pay Now!"),
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton( // once user clicked pay now
+                        onPressed: () {
+                          context.read<ShoppingCart>().removeAll(); // clear all checkout products
+                          ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                              content: Text("Payment Successful!"), // display payment successful prompt
+                              duration: Duration(seconds: 1, milliseconds: 100),
+                            )
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0), 
+                          ),
+                        ),
+                        child: const Text("Pay Now!"),
+                        ),
+                    ),
                   ],
                 )
               )
@@ -78,7 +98,7 @@ class _CheckoutState extends State<Checkout> {
   // gets the total amount of checkout items
   Widget computeCost() {
     return Consumer<ShoppingCart>(builder: (context, cart, child) {
-       return Text("Total Cost to Pay: ${cart.cartTotal}");
+       return Text("Total Cost to Pay: ${cart.cartTotal}", style: const TextStyle(fontWeight: FontWeight.bold));
     });
   }
 }
