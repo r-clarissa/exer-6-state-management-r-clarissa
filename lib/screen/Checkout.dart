@@ -20,7 +20,6 @@ class _CheckoutState extends State<Checkout> {
         mainAxisAlignment: MainAxisAlignment.center, 
         children: [ // checkout header
           const Center(child: Text("Item Details", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)),
-          // methods
           getItems(context), 
           const SizedBox(height: 10),
         ],)
@@ -53,9 +52,7 @@ class _CheckoutState extends State<Checkout> {
                           ),
                           Container(
                             margin: const EdgeInsets.only(right: 20.0),
-                            child: Text(
-                              '${products[index].price}',
-                            ),
+                            child: Text( '${products[index].price}'),
                           ),
                         ],
                       );
@@ -71,13 +68,13 @@ class _CheckoutState extends State<Checkout> {
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton( // once user clicked pay now
                         onPressed: () {
-                          context.read<ShoppingCart>().removeAll(); // clear all checkout products
                           ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                               content: Text("Payment Successful!"), // display payment successful prompt
                               duration: Duration(seconds: 1, milliseconds: 100),
                             )
                           );
+                          context.read<ShoppingCart>().removeAll(); // clear all checkout products
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
