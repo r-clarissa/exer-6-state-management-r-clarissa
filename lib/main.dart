@@ -5,7 +5,6 @@ import 'package:week6/screen/Checkout.dart';
 import 'package:provider/provider.dart';
 import 'provider/shoppingcart_provider.dart';
 
-
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => ShoppingCart()),
@@ -19,17 +18,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Shopping App',
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false, // do not display debug banner
       theme: ThemeData(
         primarySwatch: Colors.pink,
       ),
       initialRoute: "/",
-      routes: {
+      routes: { // shopping routes
         "/cart": (context) => const MyCart(),
         "/checkout": (context) => const Checkout(),
         "/products": (context) => const MyCatalog(),
       },
-      home: const MyCatalog(),
+      home: const MyCatalog(), // initial page to display
     );
   }
 }
