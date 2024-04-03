@@ -18,15 +18,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Shopping App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.pink,
       ),
       initialRoute: "/",
       routes: {
         "/cart": (context) => const MyCart(),
-        "/products": (context) => const MyCatalog(),
         "/checkout": (context) => const Checkout(),
+        "/products": (context) => const MyCatalog(),
       },
       home: const MyCatalog(),
     );
