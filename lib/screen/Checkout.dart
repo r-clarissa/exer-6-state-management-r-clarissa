@@ -14,25 +14,30 @@ class Checkout extends StatefulWidget {
 class _CheckoutState extends State<Checkout> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold( // checkout scaffold
       appBar: AppBar(title: const Text("Checkout")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start, 
-        children: [
+        children: [ // checkout header
           const Text("Item Details"),
           const Divider(height: 4, color: Colors.black),
-          getItems(context),
+          getItems(context), // display the current checkout products
         ],)
     );
   }
   
+  // fetches the checkout product data
   Widget getItems(BuildContext context) {
+    // variable declaration
     List<Item> products = context.watch<ShoppingCart>().cart;
+
+    // conditionals for no. of products fetched
     return products.isEmpty
       ? const Text('No items to checkout!')
       : Expanded(
           child: Column(
             children: [
+              // display the product list
               Flexible(
                 child: ListView.builder(
                   itemCount: products.length,
@@ -44,17 +49,18 @@ class _CheckoutState extends State<Checkout> {
                   },
                 )
               ),
+              // pay now button and prompt
               Flexible(
                 child: Column(
                   children: [
                     const Divider(height: 4, color: Colors.black),
-                    computeCost(),
-                    ElevatedButton(
+                    computeCost(), // compute total cost before payment
+                    ElevatedButton( // once user clicked pay now
                       onPressed: () {
-                        context.read<ShoppingCart>().removeAll();
+                        context.read<ShoppingCart>().removeAll(); // clear all checkout products
                         ScaffoldMessenger.of(context)
                           .showSnackBar(const SnackBar(
-                            content: Text("Payment Successful!"),
+                            content: Text("Payment Successful!"), // display payment successful prompt
                             duration: Duration(seconds: 1, milliseconds: 100),
                           )
                         );
@@ -69,6 +75,7 @@ class _CheckoutState extends State<Checkout> {
         );
   }
 
+  // gets the total amount of checkout items
   Widget computeCost() {
     return Consumer<ShoppingCart>(builder: (context, cart, child) {
        return Text("Total Cost to Pay: ${cart.cartTotal}");
