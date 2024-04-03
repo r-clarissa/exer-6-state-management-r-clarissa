@@ -52,9 +52,10 @@ class _MyCheckoutState extends State<MyCheckout> {
                     ElevatedButton(
                       onPressed: () {
                         context.read<ShoppingCart>().removeAll();
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Payment Successful!"),
-                          duration: Duration(seconds: 1, milliseconds: 100),
+                        ScaffoldMessenger.of(context)
+                          .showSnackBar(const SnackBar(
+                            content: Text("Payment Successful!"),
+                            duration: Duration(seconds: 1, milliseconds: 100),
                           )
                         );
                       },

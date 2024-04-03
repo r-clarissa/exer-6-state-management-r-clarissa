@@ -13,23 +13,25 @@ class MyCart extends StatelessWidget {
       appBar: AppBar(title: const Text("My Cart")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          getItems(context),
+        children: [ 
+          // methods
+          getItems(context), 
           computeCost(),
           const Divider(height: 4, color: Colors.black),
+          // buttons
           Flexible(
             child: Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // Reset Button
+                  // reset button
                   ElevatedButton(
                     onPressed: () {
                       context.read<ShoppingCart>().removeAll();
                     },
                     child: const Text("Reset")
                   ),
-                  // Checkout Button
+                  // checkout button
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, "/checkout");
@@ -40,7 +42,8 @@ class MyCart extends StatelessWidget {
               )
             )
           ),
-          TextButton(
+          // return to /products button
+          TextButton( 
             child: const Text("Go back to Product Catalog"),
             onPressed: () {
               Navigator.pushNamed(context, "/products");
@@ -51,9 +54,13 @@ class MyCart extends StatelessWidget {
     );
   }
 
+  // fetches the product data
   Widget getItems(BuildContext context) {
+    // variable declaration
     List<Item> products = context.watch<ShoppingCart>().cart;
     String productname = "";
+    
+    // conditionals for no. of products fetched
     return products.isEmpty
       ? const Text('No Items yet!')
       : Expanded(
@@ -63,7 +70,8 @@ class MyCart extends StatelessWidget {
                 child: ListView.builder(
                   itemCount: products.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
+                    // display the product list
+                    return ListTile( 
                       leading: const Icon(Icons.food_bank),
                       title: Text(products[index].name),
                       trailing: IconButton(
@@ -71,12 +79,12 @@ class MyCart extends StatelessWidget {
                         onPressed: () {
                           productname = products[index].name;
                           context.read<ShoppingCart>().removeItem(productname);
-
+                          // display the conditional prompts
                           if (products.isNotEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text("$productname removed!"),
-                              duration:
-                                const Duration(seconds: 1, milliseconds: 100),
+                            ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(
+                                content: Text("$productname removed!"),
+                                duration: const Duration(seconds: 1, milliseconds: 100),
                             ));
                           } else {
                             ScaffoldMessenger.of(context)
@@ -96,7 +104,7 @@ class MyCart extends StatelessWidget {
         );
   }
 
-
+  // gets the total amount of selected items in cart
   Widget computeCost() {
     return Consumer<ShoppingCart>(builder: (context, cart, child) {
        return Text("Total: ${cart.cartTotal}");
